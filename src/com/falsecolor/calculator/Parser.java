@@ -7,15 +7,16 @@ public class Parser {
         for (int i = 0; i < input.length(); i++) {
             if ((int)input.charAt(i) >= 48 && (int)input.charAt(i) <= 57)
                 countArabic++;
-            else
+            else try {
+                RomanLetters.valueOf(input.substring(i, i + 1));
                 countRoman++;
+            } catch (Exception e) {
+                throw new Exception("Unsupported symbols found");
+            }
         }
         if (countArabic != 0 && countRoman != 0)
             throw new Exception("You can't mix arabic and roman symbols");
-        if (countRoman > 0)
-            return true;
-        else
-            return false;
+        return countRoman > 0;
     }
     public String[] splitInput(String input) throws Exception{
         String[] parts = input.split(" ");
